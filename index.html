@@ -8,7 +8,10 @@
   <body>
     <div id="app">
       <p>Original message: "{{ message }}"</p>
-      <p>Computed reversed message: "{{ reversedMessage }}"</p>
+      <p>"{{ reversedMessage() }}"</p>
+      <p>"{{computedReversedMessage}}"</p>
+      <p>{{n}}</p>
+      <button @click="add">+1</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="src/index.js"></script>
