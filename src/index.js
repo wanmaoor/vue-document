@@ -18,18 +18,29 @@ let vm = new Vue({
     },
     add() {
       this.n += 1;
+    },
+    wanmao() {
+      this.computedReversedMessage = "wanmao";
     }
   },
   computed: {
-    computedReversedMessage() {
-      console.log("computed 被调用");
-      return (
-        "computed:" +
-        this.message
+    computedReversedMessage: {
+      get() {
+        console.log("computed 被调用");
+        return (
+          "computed:" +
+          this.message
+            .split("")
+            .reverse()
+            .join("")
+        );
+      },
+      set(newValue) {
+        this.message = newValue
           .split("")
           .reverse()
-          .join("")
-      );
+          .join("");
+      }
     }
   }
 });
