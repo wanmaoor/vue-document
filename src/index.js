@@ -1,21 +1,23 @@
 import "./styles.css";
+Vue.component("blog-post", {
+  props: ["title"],
+  template: `
+    <h1>{{title}}</h1>
+  `
+});
 new Vue({
   el: "#app",
   template: `
     <div>
-    <button-counter />
-    <button-counter />
-    <button-counter />
+      <blog-post v-for="post in posts" :key="post.id" v-text="post.title" />
+      
     </div>
-  `
-});
-Vue.component("button-counter", {
-  data() {
-    return {
-      count: 0
-    };
-  },
-  template: `
-    <button @click="count++">You click me {{count}} times</button>
-  `
+  `,
+  data: {
+    posts: [
+      { id: 1, title: "My journey with Vue" },
+      { id: 2, title: "Blogging with Vue" },
+      { id: 3, title: "Why Vue is so fun" }
+    ]
+  }
 });
