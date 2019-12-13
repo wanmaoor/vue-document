@@ -18,10 +18,8 @@ Vue.component("current-user", {
 new Vue({
   el: "#app",
   template: `
-  <current-user>
-   <template v-slot="{user}">
+  <current-user #default="{user}">
     {{user.firstName}}
-   </template> 
   </current-user>
   `
 });
