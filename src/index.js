@@ -1,12 +1,12 @@
 Vue.component("navigation-link", {
-  props: ["url"],
+  props: ["url", "fallback"],
   template: `
   <a
     :href="url"
   >
   子组件: Clicking here will send you to: {{ url }}
   <br/>
-  <slot></slot>
+  <slot>{{fallback}}</slot>
 </a>
   `,
   data() {
@@ -17,15 +17,14 @@ Vue.component("navigation-link", {
 new Vue({
   el: "#app",
   template: `
-    <navigation-link url="https://baidu.com">
-    Logged in as {{ user }}
-    <br/>
-    父组件: Clicking here will send you to: {{ url }}
+    <navigation-link url="https://baidu.com" :fallback="fallback">
+   
     </navigation-link>
   `,
   data() {
     return {
-      user: "wanmao"
+      user: "wanmao",
+      fallback: "This is fall back content"
     };
   }
 });
