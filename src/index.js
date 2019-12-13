@@ -1,21 +1,32 @@
+Vue.component("blog-post", {
+  props: {
+    title: String,
+    number: Number
+  },
+  template: `
+  <div>
+    <h1>{{title}}</h1>
+    <h2>{{number}}</h2>
+  </div>
+    
+    
+  `
+});
 new Vue({
   el: "#app",
   template: `
     <div>
-    <input type="checkbox" id="jack" value="1" v-model="checkedNames">
-  <label for="jack">Jack</label>
-  <input type="checkbox" id="john" value="2" v-model="checkedNames">
-  <label for="john">John</label>
-  <input type="checkbox" id="mike" value="3" v-model="checkedNames">
-  <label for="mike">Mike</label>
-  <br>
-  <span>Checked names: {{ checkedNames }}</span>
+      <blog-post 
+        v-for="post in posts" 
+        :key="post.id" 
+        v-bind="post"/>    
     </div>
   `,
-  data() {
-    return {
-      checkedNames: []
-    };
-  },
-  methods: {}
+  data: {
+    posts: [
+      { id: 1, title: "My journey with Vue", number: 23 },
+      { id: 2, title: "Blogging with Vue", number: 24 },
+      { id: 3, title: "Why Vue is so fun", number: 30 }
+    ]
+  }
 });
