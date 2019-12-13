@@ -1,30 +1,24 @@
-Vue.component("navigation-link", {
-  props: ["url", "fallback"],
+Vue.component("current-user", {
   template: `
-  <a
-    :href="url"
-  >
-  子组件: Clicking here will send you to: {{ url }}
-  <br/>
-  <slot>{{fallback}}</slot>
-</a>
+  <span>
+    <slot :user="user">{{ user.lastName }}</slot>
+  </span>
   `,
   data() {
-    return {};
+    return {
+      user: {
+        firstName: "wan",
+        lastName: "fallback content"
+      }
+    };
   }
 });
 
 new Vue({
   el: "#app",
   template: `
-    <navigation-link url="https://baidu.com" :fallback="fallback">
-   
-    </navigation-link>
-  `,
-  data() {
-    return {
-      user: "wanmao",
-      fallback: "This is fall back content"
-    };
-  }
+  <current-user v-slot:default="slotProps">
+    {{slotProps.user.firstName}}
+  </current-user>
+  `
 });
