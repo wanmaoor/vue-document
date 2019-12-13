@@ -1,16 +1,15 @@
-import "./styles.css";
-
 new Vue({
   el: "#app",
   template: `
     <div>
-      <p>{{count}}</p>
-      <button @click="count ++">+1</button>
+      <input v-model="msg" placeholder="edit me" />
+      <p>Message is {{msg}}</p>
     </div>
   `,
   data() {
     return {
-      count: 0
+      msg: ""
     };
-  }
+  },
+  methods: {}
 });
