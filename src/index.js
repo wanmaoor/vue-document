@@ -1,32 +1,31 @@
-Vue.component("blog-post", {
-  props: {
-    title: String,
-    number: Number
-  },
+Vue.component("navigation-link", {
+  props: ["url"],
   template: `
-  <div>
-    <h1>{{title}}</h1>
-    <h2>{{number}}</h2>
-  </div>
-    
-    
-  `
+  <a
+    :href="url"
+  >
+  子组件: Clicking here will send you to: {{ url }}
+  <br/>
+  <slot></slot>
+</a>
+  `,
+  data() {
+    return {};
+  }
 });
+
 new Vue({
   el: "#app",
   template: `
-    <div>
-      <blog-post 
-        v-for="post in posts" 
-        :key="post.id" 
-        v-bind="post"/>    
-    </div>
+    <navigation-link url="https://baidu.com">
+    Logged in as {{ user }}
+    <br/>
+    父组件: Clicking here will send you to: {{ url }}
+    </navigation-link>
   `,
-  data: {
-    posts: [
-      { id: 1, title: "My journey with Vue", number: 23 },
-      { id: 2, title: "Blogging with Vue", number: 24 },
-      { id: 3, title: "Why Vue is so fun", number: 30 }
-    ]
+  data() {
+    return {
+      user: "wanmao"
+    };
   }
 });
