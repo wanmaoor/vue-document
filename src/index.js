@@ -1,33 +1,41 @@
-Vue.component("sub-1", {
+Vue.component("son", {
   template: `
-  <p>
-    sub-1
-  </p>`,
-  data() {
-    return {
-      placeholder: 0
-    };
-  }
+    <div style="border: 1px solid red">
+      <p>I'm son</p>
+      <p>全局状态: {{globalState}}</p>
+      <slot></slot>
+    </div>
+  `,
+  inject: ["globalState"]
+});
+
+Vue.component("grandSon", {
+  template: `
+    <div style="border: 1px solid black; width: 50%; margin: 10px">
+      <p>I'm grandSon</p>
+      <p>全局状态: {{globalState}}</p>
+    </div>
+  `,
+  inject: ["globalState"]
 });
 
 new Vue({
   el: "#app",
   template: `
     <div>
-      <sub-1 ref="sub"/>
-      <button @click="fetchRefs">获取refs.sub.placeholder</button>
-      <p>{{placeholder}}</p>
+      <son>
+        <grandSon />
+      </son>
     </div>
   `,
   data() {
     return {
-      foo: 1,
-      placeholder: ""
+      globalState: 1
     };
   },
-  methods: {
-    fetchRefs() {
-      this.placeholder = this.$refs.sub.placeholder;
-    }
+  provide() {
+    return {
+      globalState: this.globalState
+    };
   }
 });
