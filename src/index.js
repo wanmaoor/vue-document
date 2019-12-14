@@ -1,25 +1,23 @@
-Vue.component("current-user", {
-  template: `
-  <span>
-    <slot :user="user">{{ user.lastName }}</slot>
-  </span>
-  `,
-  data() {
-    return {
-      user: {
-        firstName: "wan",
-        lastName: "fallback content",
-        other: "other"
-      }
-    };
-  }
-});
+Vue.component("async-example", (resolve, reject)=>{
+  setTimeout(()=>{
+    resolve({
+      template: `<div>I am async</div>`
+    })
+  },3000)
+})
+
 
 new Vue({
-  el: "#app",
+  el:"#app",
   template: `
-  <current-user #default="{user}">
-    {{user.firstName}}
-  </current-user>
-  `
-});
+    <div>
+      <async-example />
+      {{n}}
+    </div>
+  `,
+  data(){
+    return {
+      n: '3秒后出现'
+    }
+  }
+})
