@@ -1,41 +1,47 @@
-Vue.component("son", {
+const mixIns = {
+  created() {
+    console.log("mixin is awesome");
+  },
+  data() {
+    return {
+      protoData: 1
+    };
+  },
+  methods: {
+    add() {
+      this.protoData += 1;
+    }
+  }
+};
+
+Vue.component("foo", {
   template: `
-    <div style="border: 1px solid red">
-      <p>I'm son</p>
-      <p>全局状态: {{globalState}}</p>
-      <slot></slot>
+    <div>
+      foo
+      <p>{{protoData}}</p>
+      <button @click="add">foo +1</button>
     </div>
   `,
-  inject: ["globalState"]
+  mixins: [mixIns]
 });
 
-Vue.component("grandSon", {
+Vue.component("bar", {
   template: `
-    <div style="border: 1px solid black; width: 50%; margin: 10px">
-      <p>I'm grandSon</p>
-      <p>全局状态: {{globalState}}</p>
+    <div>
+      foo
+      <h1>{{protoData}}</h1>
+      <button @click="add">bar +1</button>
     </div>
   `,
-  inject: ["globalState"]
+  mixins: [mixIns]
 });
 
 new Vue({
   el: "#app",
   template: `
     <div>
-      <son>
-        <grandSon />
-      </son>
+      <foo />
+      <bar />
     </div>
-  `,
-  data() {
-    return {
-      globalState: 1
-    };
-  },
-  provide() {
-    return {
-      globalState: this.globalState
-    };
-  }
+  `
 });
