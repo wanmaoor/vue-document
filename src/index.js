@@ -1,25 +1,12 @@
 Vue.component("sub-1", {
   template: `
   <p>
-    {{bar}}
-    <button @click="getBaz">get baz</button>
-    {{placeholder}}
+    sub-1
   </p>`,
   data() {
     return {
       placeholder: 0
     };
-  },
-  computed: {
-    bar() {
-      return this.$root.foo;
-    }
-  },
-  methods: {
-    getBaz() {
-      this.placeholder = this.$root.bar;
-      this.$root.baz();
-    }
   }
 });
 
@@ -27,22 +14,20 @@ new Vue({
   el: "#app",
   template: `
     <div>
-      <sub-1 />
+      <sub-1 ref="sub"/>
+      <button @click="fetchRefs">获取refs.sub.placeholder</button>
+      <p>{{placeholder}}</p>
     </div>
   `,
   data() {
     return {
-      foo: 1
+      foo: 1,
+      placeholder: ""
     };
   },
-  computed: {
-    bar() {
-      return "bar";
-    }
-  },
   methods: {
-    baz() {
-      alert("你调用了根元素的方法");
+    fetchRefs() {
+      this.placeholder = this.$refs.sub.placeholder;
     }
   }
 });
